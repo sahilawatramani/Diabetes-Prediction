@@ -1,30 +1,35 @@
 # Diabetes Prediction Project
 
-This project utilizes various machine learning algorithms to predict whether a person has diabetes based on medical attributes. The dataset used in this project is the Pima Indians Diabetes Database.
+This project is a **web-based diabetes prediction system** using **machine learning** with **Streamlit**. It allows users to **register, log in, explore the dataset, visualize trends, and predict diabetes risk** based on their medical attributes. The dataset used is the **Pima Indians Diabetes Database**.
 
 ## Table of Contents
 - [Installation](#installation)
+- [Features](#features)
 - [Dataset](#dataset)
 - [Exploratory Data Analysis (EDA)](#exploratory-data-analysis-eda)
 - [Preprocessing](#preprocessing)
 - [Model Training and Evaluation](#model-training-and-evaluation)
+- [User Authentication](#user-authentication)
 - [Results](#results)
+- [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
 
 ## Installation
 
 ### Prerequisites
-- Python 3.x
-- Required Python packages:
-  - pandas
-  - numpy
-  - seaborn
-  - matplotlib
-  - scikit-learn
+Ensure you have Python 3.x installed and the following libraries:
+- `streamlit`
+- `pandas`
+- `numpy`
+- `seaborn`
+- `matplotlib`
+- `scikit-learn`
+- `hashlib`
+- `os`
 
 ### Installing
-Clone the repository and install the required packages:
+Clone the repository and install the dependencies:
 
 ```bash
 git clone https://github.com/your-username/diabetes-prediction.git
@@ -32,69 +37,87 @@ cd diabetes-prediction
 pip install -r requirements.txt
 ```
 
+## Features
+
+✅ **User Authentication** (Register/Login system with hashed passwords)  
+✅ **Diabetes Prediction** using **KNN, Decision Tree, and MLP classifiers**  
+✅ **Dataset Visualization** (Heatmaps, KDE plots, and more)  
+✅ **Real-time Model Selection**  
+✅ **Custom User Inputs for Prediction**  
+
 ## Dataset
 
-The dataset used in this project is the Pima Indians Diabetes Database. The dataset can be found in the file `diabetes.csv`.
+The dataset used is the **Pima Indians Diabetes Database** (`diabetes.csv`). It contains the following attributes:
 
-- **Pregnancies**: Number of times pregnant
-- **Glucose**: Plasma glucose concentration after 2 hours in an oral glucose tolerance test
-- **BloodPressure**: Diastolic blood pressure (mm Hg)
-- **SkinThickness**: Triceps skinfold thickness (mm)
-- **Insulin**: 2-Hour serum insulin (mu U/ml)
-- **BMI**: Body mass index (weight in kg/(height in m)^2)
-- **DiabetesPedigreeFunction**: Diabetes pedigree function (a function which scores likelihood of diabetes based on family history)
-- **Age**: Age in years
-- **Outcome**: Class variable (0 or 1) 0 means non-diabetic and 1 means diabetic
+- **Pregnancies**: Number of times pregnant  
+- **Glucose**: Plasma glucose concentration  
+- **BloodPressure**: Diastolic blood pressure  
+- **SkinThickness**: Triceps skinfold thickness  
+- **Insulin**: 2-Hour serum insulin  
+- **BMI**: Body mass index  
+- **DiabetesPedigreeFunction**: Diabetes likelihood based on family history  
+- **Age**: Age in years  
+- **Outcome**: 0 (Non-diabetic) or 1 (Diabetic)  
 
 ## Exploratory Data Analysis (EDA)
 
-The dataset is explored through various visualizations:
-- **Correlation heatmap**: Displays the correlations between different features.
-- **KDE plot**: Kernel density estimation plots for pregnancies based on the outcome.
-- **Violin plot**: Violin plots for glucose levels based on the outcome.
+The app provides interactive **visualizations**, including:
+- **Correlation Heatmap**: Displays relationships between attributes.
+- **KDE Plot**: Density estimation of pregnancies by diabetes outcome.
+- **Data Preview**: View the first five rows of the dataset.
 
 ## Preprocessing
 
-Before training the models, the following preprocessing steps are performed:
-- Handling missing values by replacing zeros with the median or mean of the respective columns.
-- Splitting the data into features (`X`) and labels (`y`).
-- Splitting the dataset into training and testing sets using an 80-20 split.
+Preprocessing steps include:
+- **Handling missing values**: Replacing zeros in `Glucose`, `BloodPressure`, `BMI`, etc., with median or mean values.
+- **Splitting data** into **training (67%)** and **testing (33%)** sets.
 
 ## Model Training and Evaluation
 
-Three different machine learning models are trained and evaluated:
+Three **ML models** are available:
+1. **K-Nearest Neighbors (KNN)**:  
+   - Uses `n_neighbors=9`
+   - Computes accuracy on training/testing data
 
-1. **K-Nearest Neighbors (KNN)**
-   - Evaluates accuracy for different values of `n_neighbors`.
-   - Trains a final model with the best `n_neighbors`.
+2. **Decision Tree**:  
+   - A depth-limited (`max_depth=3`) model to avoid overfitting  
 
-2. **Decision Tree**
-   - Trains a decision tree classifier.
-   - Also trains a decision tree with a maximum depth of 3 to prevent overfitting.
+3. **Multi-Layer Perceptron (MLP)**:  
+   - Uses a standard neural network (`MLPClassifier`)
+   - Data is **standardized using StandardScaler** before training
 
-3. **Multi-Layer Perceptron (MLP)**
-   - Trains a neural network without scaling.
-   - Re-trains the neural network after scaling the features using `StandardScaler`.
+Each model reports **training and testing accuracy**.
 
-### Training and Evaluation Script
+## User Authentication
 
-To train and evaluate the models, run:
-
-```python
-python train_and_evaluate.py
-```
+- **New users** can register and have their passwords securely stored using **SHA-256 hashing**.
+- **Existing users** can log in and access diabetes prediction features.
+- **Session state** is used to maintain login status.
 
 ## Results
 
-The models are evaluated based on their accuracy on the training and testing sets:
-- **KNN**: Reports the training and testing accuracy for different values of `n_neighbors`.
-- **Decision Tree**: Reports the accuracy before and after limiting the tree depth.
-- **MLP**: Reports the accuracy before and after scaling the data.
+Each classifier provides **accuracy scores** based on training/testing data.  
+The app also displays **the probability of diabetes risk** based on user inputs.
+
+## Usage
+
+To run the application:
+
+```bash
+streamlit run app.py
+```
 
 ## Contributing
 
-Contributions are welcome! Please fork the repository and submit a pull request with your changes.
+Contributions are welcome!  
+- Fork the repository  
+- Create a new branch (`git checkout -b feature-branch`)  
+- Commit your changes (`git commit -m "Added feature XYZ"`)  
+- Push to the branch (`git push origin feature-branch`)  
+- Submit a **pull request**  
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License**.
+
+---
